@@ -14,7 +14,7 @@ services:
       - back-end
 
   service-pet-shop-web:
-    image: pet-shop-web:v1.0.6
+    image: pet-shop-web:latest
     ports:
       - 6002:80
     deploy:
