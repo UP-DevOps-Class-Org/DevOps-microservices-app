@@ -142,7 +142,9 @@ madhu@Admins-MacBook-Pro:~/dockerfiles/docker-swarm-loadbalancing-haproxy$
 
 NAME                SERVICES            ORCHESTRATOR
 account-stack       2                   Swarm
+
 madhu@Admins-MacBook-Pro:~/dockerfiles/docker-swarm-loadbalancing-haproxy$ docker service ls
+
 ID                  NAME                            MODE                REPLICAS            IMAGE                                  PORTS
 oh76u5b6lyz3        account-stack_account-service   replicated          1/1                 madhukargunda/account-service:latest   *:80->2222/tcp
 mxin1o40530h        account-stack_visualizer        replicated          1/1                 dockersamples/visualizer:stable        *:7001->8080/tcp

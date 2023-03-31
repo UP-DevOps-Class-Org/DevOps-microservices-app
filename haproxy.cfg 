@@ -17,14 +17,14 @@ listen stats
 
 frontend main
     bind *:80
-    default_backend account-microservices
+    default_backend app-microservices
 
-backend account-microservices
+backend app-microservices
     balance leastconn
     mode http
-    server manager1 192.168.99.100:80
-    server worker-1 192.168.99.102:80
-    server worker-2 192.168.99.103:80
+    server swarm-node-1 18.208.120.139
+    server swarm-node-2 100.27.4.48
+    server swarm-node-3 34.203.42.37
 
 
 
