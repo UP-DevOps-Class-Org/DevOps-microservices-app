@@ -8,12 +8,10 @@ services:
       - 6001:80
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 1
-        order: start-first
-        failure_action: rollback
       restart_policy:
         condition: on-failure
+    networks:
+      - back-end
 
   service-pet-shop-web:
     image: pet-shop-web:v1.0.6
@@ -21,12 +19,10 @@ services:
       - 6002:80
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 1
-        order: start-first
-        failure_action: rollback
       restart_policy:
         condition: on-failure
+    networks:
+      - back-end
 
   service-selo-web:
     image: selo-web:latest
@@ -34,12 +30,10 @@ services:
       - 6003:80
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 1
-        order: start-first
-        failure_action: rollback
       restart_policy:
         condition: on-failure
+    networks:
+      - back-end
 
   service-php-web-app:
     image: php-sample-demo:latest
@@ -47,13 +41,10 @@ services:
       - 6004:80
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 1
-        order: start-first
-        failure_action: rollback
       restart_policy:
         condition: on-failure
-        
+    networks:
+      - back-end
         
   visualizer:
     image: dockersamples/visualizer:stable
