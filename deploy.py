@@ -17,7 +17,6 @@ def build_deployment(deployment_arg):
             os.system('cd ProjectsApp && cd selo-web && docker build -t selo-web .')
         case "all":
             print("Building " + deployment_arg + ".....")
-            # build_all_deployment()
             os.system('cd ProjectsApp && cd financial-service-web && docker build -t financial-service-web .')
             os.system('cd ProjectsApp && cd pet-shop-web && docker build -t pet-shop-web .')
             os.system('cd ProjectsApp && cd selo-web && docker build -t selo-web .')

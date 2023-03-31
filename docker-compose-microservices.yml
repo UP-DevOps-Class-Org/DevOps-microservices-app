@@ -1,0 +1,57 @@
+version: '3.5'
+
+services:
+
+  service-financial-service-web:
+    image: financial-service-web:latest
+    ports:
+      - 6001:80
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+
+  service-pet-shop-web:
+    image: pet-shop-web:v1.0.6
+    ports:
+      - 6002:80
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+
+  service-selo-web:
+    image: selo-web:latest
+    ports:
+      - 6003:80
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+
+  service-php-web-app:
+    image: php-sample-demo:latest
+    ports:
+      - 6004:80
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+        
+        
