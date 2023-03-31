@@ -18,7 +18,7 @@ services:
     ports:
       - 6002:80
     deploy:
-      replicas: 1
+      replicas: 3
       restart_policy:
         condition: on-failure
     networks:
