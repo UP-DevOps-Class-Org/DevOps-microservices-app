@@ -9,18 +9,11 @@ defaults
     log global
     mode http
 
-listen stats
-    bind *:8404
-    stats enable
-    stats uri /monitor
-    stats refresh 5s
-
 frontend main
     bind *:80
     default_backend app-microservices
 
 backend app-microservices
-    balance leastconn
     mode http
     server swarm-node-1 18.208.120.139
     server swarm-node-2 100.27.4.48

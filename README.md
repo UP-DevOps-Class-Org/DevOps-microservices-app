@@ -107,7 +107,7 @@ lb     /docker-entrypoint.sh hapr ...   Up      0.0.0.0:80->80/tcp, 0.0.0.0:8404
 ```
 ## Step10: 
 
-### root@swarm-node-1 is node manager
+### Goto root@swarm-node-1 that's node manager
 
 ```
 root@swarm-node-1:~# docker node ls 
@@ -119,7 +119,26 @@ uy7ttlq2ngaijff3mlkb54gl3     swarm-node-3   Ready     Active                   
 ```
 ## Step 11: 
 
+### Build images and deploy
+
 ```
+
+root@swarm-node-1:~# cd DevOps-microservices-app
+
+root@swarm-node-1:~/DevOps-microservices-app# 
+
+root@swarm-node-1:~/DevOps-microservices-app# ls -l
+total 36
+drwxr-xr-x 6 root root 4096 Mar 31 02:51  ProjectsApp
+-rw-r--r-- 1 root root 8941 Mar 31 02:51  README.md
+-rw-r--r-- 1 root root 1472 Mar 31 02:51  deploy.py
+-rw-r--r-- 1 root root   57 Mar 31 02:51  deploy.sh
+-rw-r--r-- 1 root root 1438 Mar 31 02:51  docker-compose-microservices.yml
+-rw-r--r-- 1 root root  220 Mar 31 02:51  docker-compose.yml
+-rw-r--r-- 1 root root  475 Mar 31 02:51 'haproxy.cfg '
+
+root@swarm-node-1:~/DevOps-microservices-app# python3.11 deploy.py all , app1, app2, appN
+
 docker stack deploy -c docker-compose-microservices.yml account-stack
 
 Ignoring unsupported options: restart
@@ -133,6 +152,7 @@ Creating service account-stack_visualizer
 Creating service account-stack_account-service
 
 madhu@Admins-MacBook-Pro:~/dockerfiles/docker-swarm-loadbalancing-haproxy$ 
+
 ```
 
 ## Step 12:

@@ -7,7 +7,7 @@ services:
     ports:
       - 6001:80
     deploy:
-      mode: global
+#      mode: global
       update_config:
         parallelism: 1
         order: start-first
@@ -20,7 +20,7 @@ services:
     ports:
       - 6002:80
     deploy:
-      mode: global
+#      mode: global
       update_config:
         parallelism: 1
         order: start-first
@@ -33,7 +33,7 @@ services:
     ports:
       - 6003:80
     deploy:
-      mode: global
+#      mode: global
       update_config:
         parallelism: 1
         order: start-first
@@ -46,7 +46,7 @@ services:
     ports:
       - 6004:80
     deploy:
-      mode: global
+#      mode: global
       update_config:
         parallelism: 1
         order: start-first
