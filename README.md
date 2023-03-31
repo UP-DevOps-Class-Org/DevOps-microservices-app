@@ -70,6 +70,31 @@ eval $(docker-machine env load-balancer)
 ## Step9: 
 
 ```
+root@load-balancer-haproxy:/opt/DevOps-microservices-app# cat docker-compose.yml 
+version: '3.1'
+
+services:
+  loadbalancer:
+    image: haproxy
+    container_name: loadbalancer-haproxy
+    ports:
+      - 80:80
+      - 8404:8404
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+
+root@load-balancer-haproxy:/opt/DevOps-microservices-app# docker compose up -d
+[+] Running 5/5
+ ✔ loadbalancer 4 layers [⣿⣿⣿⣿]      0B/0B      Pulled                                                                                                                                                                                3.6s 
+   ✔ f1f26f570256 Pull complete                                                                                                                                                                                                       2.8s 
+   ✔ c3c6fef84ef4 Pull complete                                                                                                                                                                                                       2.9s 
+   ✔ 4571ee8644ba Pull complete                                                                                                                                                                                                       3.3s 
+   ✔ 38148fa06c01 Pull complete                                                                                                                                                                                                       3.4s 
+[+] Running 2/2
+ ✔ Network devops-microservices-app_default  Created                                                                                                                                                                                  0.1s 
+ ✔ Container loadbalancer-haproxy            Started                                                                                                                                                                                  0.8s 
+root@load-balancer-haproxy:/opt/DevOps-microservices-app# 
+
 docker-compose up -d
 
 Creating network "docker-swarm-loadbalancing-haproxy_default" with the default driver
@@ -81,13 +106,15 @@ Name              Command               State                     Ports
 lb     /docker-entrypoint.sh hapr ...   Up      0.0.0.0:80->80/tcp, 0.0.0.0:8404->8404/tcp
 ```
 ## Step10: 
+
+### root@swarm-node-1 is node manager
+
 ```
-madhu@Admins-MacBook-Pro:~/dockerfiles/docker-swarm-loadbalancing-haproxy$ eval $(docker-machine env manager1)
-madhu@Admins-MacBook-Pro:~/dockerfiles/docker-swarm-loadbalancing-haproxy$ docker node ls
-ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
-b4etd4utcgn9xnpawfs2tf5qe *   manager1            Ready               Active              Leader              18.09.5
-c7gnmmmvoalmb4vowhxcmgs58     worker-1            Ready               Active                                  18.09.5
-eu7lv79v468fl6z3apok9a4u1     worker-2            Ready               Active                                  18.09.5
+root@swarm-node-1:~# docker node ls 
+ID                            HOSTNAME       STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+g0mxehq9qkecjgk5u2k0t30qu *   swarm-node-1   Ready     Active         Leader           20.10.23
+q0fj6qvkeakvnoyfzqtzmgid3     swarm-node-2   Ready     Active                          20.10.23
+uy7ttlq2ngaijff3mlkb54gl3     swarm-node-3   Ready     Active                          23.0.2
 
 ```
 ## Step 11: 
