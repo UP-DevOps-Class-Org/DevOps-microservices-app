@@ -6,7 +6,7 @@ def build_deployment(deployment_arg):
     match deployment_arg:
         case "app1":
             print("Building " + deployment_arg + ".....")
-            os.system('cd microservices && cd financial-service-web && docker build -t financial-service-web .')
+            os.system('cd microservices && cd nodejs-express-mongodb && docker build -t nodejs-express-mongodb .')
             os.system('docker stack deploy node --compose-file docker-compose.yml --with-registry-auth')
         case "app2":
             print("Building " + deployment_arg + ".....")
@@ -34,15 +34,6 @@ def build_deployment(deployment_arg):
 def deploy():
     for app in sys.argv[1:]:
         build_deployment(app)
-
-    # start swarm services
-    # docker stack deploy node --compose-file docker-compose.yml --with-registry-auth
-
-    # stop swarm services
-    # docker stack rm node
-
-    # print('Argument List: ', str(sys.argv))
-
 
 if __name__ == '__main__':
     deploy()
