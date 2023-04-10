@@ -33,29 +33,6 @@ services:
 volumes:
   db:
 
-
-  service-pet-shop-web:
-    image: pet-shop-web:latest
-    ports:
-      - 6002:80
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
-    networks:
-      - back-end
-
-  service-selo-web:
-    image: selo-web:latest
-    ports:
-      - 6003:80
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-    networks:
-      - back-end
-
   service-php-web-app:
     image: php-sample-demo:latest
     ports:
