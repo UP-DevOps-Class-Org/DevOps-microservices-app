@@ -49,11 +49,16 @@ root@swarm-node~# python3 deploy.py all
 - Deploy one microservice
 
 ```
-root@swarm-node~# python3 deploy.py app1
+root@swarm-node~# python3 deploy.py app1_name
 
 ```
 - Deploy multi microservices
 
 ```
-root@swarm-node~# python3 deploy.py app1 app2 app3
+root@swarm-node~# python3 deploy.py app1_name app2_name app3_name
+```
+
+**Run docker container**
+```
+docker run -d -p 7500:7500 image-id
 ```

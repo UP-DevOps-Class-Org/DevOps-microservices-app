@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
 
-  mongodb:
+  service-app1-mongodb:
     image: mongo:5.0.2
     restart: unless-stopped
     env_file: ./.env
@@ -13,7 +13,7 @@ services:
       - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
     volumes:
       - db:/data/db
-  app1:
+  service-app1:
     depends_on:
       - mongodb
     build: .
@@ -33,7 +33,7 @@ services:
 volumes:
   db:
 
-  service-php-web-app:
+  service-app2:
     image: php-sample-demo:latest
     ports:
       - 6004:80
@@ -44,7 +44,7 @@ volumes:
     networks:
       - back-end
         
-  visualizer:
+  service-app-visualizer:
     image: dockersamples/visualizer:stable
     ports:
       - "7001:8080"

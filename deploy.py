@@ -14,7 +14,7 @@ def deploy():
 
     for app in sys.argv[1:]:
         if(app == 'all'):
-           
+
            # Loop through all directories in the current working directory
             for dirname in os.listdir():
                 if os.path.isdir(dirname):
@@ -25,7 +25,7 @@ def deploy():
                         if project != '.DS_Store' and os.path.exists(os.path.join(project, 'Dockerfile')):
                             build_docker_images(project)
             break
-# In case of one mircoservices or multiple 
+# In case of one mircoservices or multiple
         elif(len(sys.argv) >= 2):
             for dirname in os.listdir():
                 if os.path.isdir(dirname):
@@ -34,7 +34,7 @@ def deploy():
                         for i in (sys.argv):
                             if(i == project and i != 'deploy.py'):
                                 build_docker_images(i)
-            break                    
+            break
     else:
         print(f'{Fore.RED} Invalid {app} name {Style.RESET_ALL}')
 
@@ -42,15 +42,38 @@ def deploy():
 def build_docker_images(dir_project):
     os.chdir(dir_project)
 
+    # Run docker login
+    subprocess.run(['docker', 'login'])
+
+    # Run the docker info command and capture the output
+    output = subprocess.check_output(['docker', 'info']).decode()
+
+    # Find the line containing the "Username" field
+    username_line = [line for line in output.split('\n') if 'Username' in line]
+    if username_line:
+        # Extract the username from the line
+        username = username_line[0].split(':')[1].strip()
+    else:
+        # Use a default username if the user is not logged in or has no username
+        username = 'sithvothykiv'
+
+    # Build the Docker image with the username in the tag
+    tag = f'{username}/{dir_project}:latest'
+
     # Build Docker image using the CLI
-    result = subprocess.run(
-        ['docker', 'build', '-t', f'{dir_project}', '.'])
+    result = subprocess.run(['docker', 'build', '-t', tag, '.'])
 
     # Check if the build was successful
     if result.returncode == 0:
-        os.chdir("..")
         print(
             f'{Fore.GREEN}{dir_project} image build successfully {Style.RESET_ALL} \n')
+        resultPushed = subprocess.run(['docker', 'push', f'{tag}'])
+
+        if resultPushed.returncode == 0:
+            print(
+                f'{Fore.GREEN}{dir_project} image push successfully {Style.RESET_ALL} \n')
+        os.chdir("..")
+
     else:
         print(
             f'{Fore.RED}{dir_project} image build failed {Style.RESET_ALL}')
@@ -75,6 +98,7 @@ def get_current_directory():
     #     print(app)
 
     # build_deployment(app)
+
 
     # start swarm services
     # docker stack deploy node --compose-file docker-compose.yml --with-registry-auth
