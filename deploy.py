@@ -61,18 +61,26 @@ def build_docker_images(dir_project):
     tag = f'{username}/{dir_project}:latest'
 
     # Build Docker image using the CLI
-    result = subprocess.run(['docker', 'build', '-t', tag, '.'])
+    result_build = None
+    result_pushed = None
+    if os.path.isfile("docker-compose.yml"):
+        result_build = subprocess.run(['docker', 'compose', 'build'])
+    else:
+        result_build = subprocess.run(['docker', 'build', '-t', tag, '.'])
 
     # Check if the build was successful
-    if result.returncode == 0:
+    if result_build.returncode == 0:
         print(
             f'{Fore.GREEN}{dir_project} image build successfully {Style.RESET_ALL} \n')
-        resultPushed = subprocess.run(['docker', 'push', f'{tag}'])
+        if os.path.isfile("docker-compose.yml"):
+            result_pushed = subprocess.run(['docker', 'compose', 'push'])
+        else:
+            result_pushed = subprocess.run(['docker', 'push', f'{tag}'])
 
-        if resultPushed.returncode == 0:
+        if result_pushed.returncode == 0:
             print(
                 f'{Fore.GREEN}{dir_project} image push successfully {Style.RESET_ALL} \n')
-        os.chdir("..")
+            os.chdir("..")
 
     else:
         print(
