@@ -30,9 +30,6 @@ services:
     stdin_open: true
     tty: true
 
-  volumes:
-    db:
-
   app2:
     image: php-sample-demo:latest
     ports:
