@@ -2,40 +2,54 @@ version: '3.5'
 
 services:
 
+  mongodb:
+    image: mongo:5.0.2
+    # restart: unless-stopped
+    # env_file: ./.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    ports:
+      - 7017:27017
+    volumes:
+      - db:/data/db
+      
   app1:
+    depends_on:
+      - mongodb
+    environment:
+      - DB_HOST=mongodb
+      - DB_USER=root
+      - DB_PASSWORD=123456
+      - DB_NAME=test_db
+      - DB_PORT=27017
+    stdin_open: true
     image: sithvothykiv/nodejs-tutorial-api:latest
     ports:
-      - 6004:80
+      - 7500:7500
+
+    # DEPLOYMENT  
     deploy:
-      replicas: 1
+      mode: global
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
       restart_policy:
         condition: on-failure
-    networks:
-      - back-end
         
   app2:
     image: sithvothykiv/php-sample-demo:latest
     ports:
-      - 6004:80
+      - 8000:80
     deploy:
-      replicas: 1
+      mode: global
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
       restart_policy:
         condition: on-failure
-    networks:
-      - back-end
         
-  visualizer:
-    image: dockersamples/visualizer:stable
-    ports:
-      - "7001:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    deploy:
-      placement:
-        constraints: [ node.role == manager ]
-    networks:
-      - back-end
-
-networks:
-  back-end:
-    driver: overlay
+volumes:
+  db:

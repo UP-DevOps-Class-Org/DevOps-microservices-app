@@ -14,7 +14,7 @@ def deploy():
 
     for app in sys.argv[1:]:
         if(app == 'all'):
-
+            docker_login_registry()
            # Loop through all directories in the current working directory
             for dirname in os.listdir():
                 if os.path.isdir(dirname):
@@ -24,9 +24,11 @@ def deploy():
                         # Loop through all project files in the current(microservices) working directory
                         if project != '.DS_Store' and os.path.exists(os.path.join(project, 'Dockerfile')):
                             build_docker_images(project)
+            start_swarm_service()
             break
 # In case of one mircoservices or multiple
         elif(len(sys.argv) >= 2):
+            docker_login_registry()
             for dirname in os.listdir():
                 if os.path.isdir(dirname):
                     os.chdir(dirname)
@@ -34,16 +36,17 @@ def deploy():
                         for i in (sys.argv):
                             if(i == project and i != 'deploy.py'):
                                 build_docker_images(i)
+            start_swarm_service()
             break
     else:
         print(f'{Fore.RED} Invalid {app} name {Style.RESET_ALL}')
 
 
 def build_docker_images(dir_project):
-    os.chdir(dir_project)
+    result_build = None
+    result_pushed = None
 
-    # Run docker login
-    subprocess.run(['docker', 'login'])
+    os.chdir(dir_project)
 
     # Run the docker info command and capture the output
     output = subprocess.check_output(['docker', 'info']).decode()
@@ -61,8 +64,7 @@ def build_docker_images(dir_project):
     tag = f'{username}/{dir_project}:latest'
 
     # Build Docker image using the CLI
-    result_build = None
-    result_pushed = None
+
     if os.path.isfile("docker-compose.yml"):
         result_build = subprocess.run(['docker', 'compose', 'build'])
     else:
@@ -81,14 +83,18 @@ def build_docker_images(dir_project):
             print(
                 f'{Fore.GREEN}{dir_project} image push successfully {Style.RESET_ALL} \n')
             os.chdir("..")
-
+        
     else:
         print(
             f'{Fore.RED}{dir_project} image build failed {Style.RESET_ALL}')
-
+        
 
 def docker_login_registry():
-    print(f'{Fore.GREEN} docker_login_registry')
+    print(f'{Fore.GREEN} Docker login registry')
+
+    # Run docker login
+    subprocess.run(['docker', 'login'])
+
 
 
 def get_current_directory():
@@ -100,16 +106,22 @@ def get_current_directory():
                 result = project
     return result
 
-# def deploy():
+def start_swarm_service():
+    
+    # Get the current directory
+    current_dir = os.getcwd()
 
-    # for app in sys.argv[1:]:
-    #     print(app)
+    # Get the absolute path of the parent directory
+    parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 
-    # build_deployment(app)
+    # Define the Docker CLI command to deploy a stack
+    deploy_command = "docker stack deploy --compose-file docker-compose.yml node --with-registry-auth"
+    print(f'{Fore.GREEN}  {parent_dir}')
 
+    # Start swarm services
+    os.chdir("..")
+    subprocess.run(deploy_command, shell=True)
 
-    # start swarm services
-    # docker stack deploy node --compose-file docker-compose.yml --with-registry-auth
     # stop swarm services
     # docker stack rm node
     # print('Argument List: ', str(sys.argv))

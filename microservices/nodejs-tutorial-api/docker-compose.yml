@@ -16,7 +16,7 @@ services:
     depends_on:
       - mongodb
     build: .
-    image: sithvothykiv/nodejs-tutorial-api-app
+    image: sithvothykiv/nodejs-tutorial-api
     restart: unless-stopped
     env_file: ./.env
     ports:
