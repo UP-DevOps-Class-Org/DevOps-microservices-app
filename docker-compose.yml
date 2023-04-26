@@ -50,6 +50,19 @@ services:
         failure_action: rollback
       restart_policy:
         condition: on-failure
+           
+  haproxy:
+    image: sithvothykiv/haproxy:1.7-alpine
+    ports:
+      - 80:80
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
         
 volumes:
   db:

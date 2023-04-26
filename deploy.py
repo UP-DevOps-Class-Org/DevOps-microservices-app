@@ -83,18 +83,17 @@ def build_docker_images(dir_project):
             print(
                 f'{Fore.GREEN}{dir_project} image push successfully {Style.RESET_ALL} \n')
             os.chdir("..")
-        
+
     else:
         print(
             f'{Fore.RED}{dir_project} image build failed {Style.RESET_ALL}')
-        
+
 
 def docker_login_registry():
     print(f'{Fore.GREEN} Docker login registry')
 
     # Run docker login
     subprocess.run(['docker', 'login'])
-
 
 
 def get_current_directory():
@@ -106,8 +105,9 @@ def get_current_directory():
                 result = project
     return result
 
+
 def start_swarm_service():
-    
+
     # Get the current directory
     current_dir = os.getcwd()
 
@@ -121,6 +121,7 @@ def start_swarm_service():
     # Start swarm services
     os.chdir("..")
     subprocess.run(deploy_command, shell=True)
+
 
     # stop swarm services
     # docker stack rm node
