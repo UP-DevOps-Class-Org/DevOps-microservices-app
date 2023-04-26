@@ -1,6 +1,4 @@
 FROM haproxy:1.7-alpine
 
-COPY ./ /
+COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 
-RUN chmod 755 /entrypoint.sh
-ENTRYPOINT [ "/entrypoint.sh" ]
