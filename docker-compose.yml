@@ -63,6 +63,8 @@ services:
         failure_action: rollback
       restart_policy:
         condition: on-failure
+      volumes:
+        - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
         
 volumes:
   db:
