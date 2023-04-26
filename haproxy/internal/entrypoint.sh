@@ -1,3 +1,3 @@
 #!usr/bin/env sh 
 
-/docker-entrypoint.sh haproxy -f /usr/local/etc/haproxy/haproxy.cfg
+/docker-entrypoint.sh haproxy -f /haproxy.cfg
