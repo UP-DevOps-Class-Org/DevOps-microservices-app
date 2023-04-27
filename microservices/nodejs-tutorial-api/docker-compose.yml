@@ -6,10 +6,11 @@ services:
     restart: unless-stopped
     env_file: ./.env.example
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
-      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
+      - MONGO_INITDB_ROOT_USERNAME=root #$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=123456 #$MONGODB_PASSWORD
     ports:
-      - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
+      # - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
+      - 7500:7500
     volumes:
       - db:/data/db
   app:
@@ -20,15 +21,17 @@ services:
     restart: unless-stopped
     env_file: ./.env.example
     ports:
-      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+      # - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+      - 7500:7500
     environment:
       - DB_HOST=mongodb
-      - DB_USER=$MONGODB_USER
-      - DB_PASSWORD=$MONGODB_PASSWORD
-      - DB_NAME=$MONGODB_DATABASE
-      - DB_PORT=$MONGODB_DOCKER_PORT
+      - DB_USER=root #$MONGODB_USER
+      - DB_PASSWORD=123456 #$MONGODB_PASSWORD
+      - DB_NAME=bezkoder_db #$MONGODB_DATABASE
+      - DB_PORT=27017 #$MONGODB_DOCKER_PORT
     stdin_open: true
     tty: true
 
 volumes:
   db:
+
