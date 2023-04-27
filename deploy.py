@@ -17,9 +17,11 @@ def deploy():
             docker_login_registry()
            # Loop through all directories in the current working directory
             for dirname in os.listdir():
+                print(dirname)
                 if os.path.isdir(dirname):
                     # cd microservices
                     os.chdir(dirname)
+                    print(dirname)
                     for project in os.listdir():
                         # Loop through all project files in the current(microservices) working directory
                         if project != '.DS_Store' and os.path.exists(os.path.join(project, 'Dockerfile')):
