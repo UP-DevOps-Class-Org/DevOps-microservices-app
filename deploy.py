@@ -46,6 +46,7 @@ def build_docker_images(dir_project):
     result_build = None
     result_pushed = None
 
+    print(dir_project)
     os.chdir(dir_project)
 
     # Run the docker info command and capture the output
