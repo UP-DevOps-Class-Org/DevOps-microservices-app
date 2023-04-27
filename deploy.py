@@ -24,7 +24,7 @@ def deploy():
                         # Loop through all project files in the current(microservices) working directory
                         if project != '.DS_Store' and os.path.exists(os.path.join(project, 'Dockerfile')):
                             build_docker_images(project)
-            start_swarm_service()
+                            start_swarm_service()
             break
 # In case of one mircoservices or multiple
         elif(len(sys.argv) >= 2):
@@ -36,7 +36,7 @@ def deploy():
                         for i in (sys.argv):
                             if(i == project and i != 'deploy.py'):
                                 build_docker_images(i)
-            start_swarm_service()
+                                start_swarm_service()
             break
     else:
         print(f'{Fore.RED} Invalid {app} name {Style.RESET_ALL}')
