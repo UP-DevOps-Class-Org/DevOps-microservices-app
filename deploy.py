@@ -17,28 +17,26 @@ def deploy():
             docker_login_registry()
            # Loop through all directories in the current working directory
             for dirname in os.listdir():
-                print(dirname)
                 if dirname == 'microservices' and os.path.isdir(dirname):
                     # cd microservices
                     os.chdir(dirname)
-                    print(dirname)
                     for project in os.listdir():
                         # Loop through all project files in the current(microservices) working directory
                         if project != '.DS_Store' and os.path.exists(os.path.join(project, 'Dockerfile')):
                             build_docker_images(project)
-                            start_swarm_service()
+            start_swarm_service()
             break
 # In case of one mircoservices or multiple
         elif(len(sys.argv) >= 2):
             docker_login_registry()
             for dirname in os.listdir():
-                if os.path.isdir(dirname):
+                if dirname == 'microservices' and os.path.isdir(dirname):
                     os.chdir(dirname)
                     for project in os.listdir():
                         for i in (sys.argv):
                             if(i == project and i != 'deploy.py'):
                                 build_docker_images(i)
-                                start_swarm_service()
+            start_swarm_service()
             break
     else:
         print(f'{Fore.RED} Invalid {app} name {Style.RESET_ALL}')
@@ -96,17 +94,6 @@ def docker_login_registry():
 
     # Run docker login
     subprocess.run(['docker', 'login'])
-
-
-def get_current_directory():
-    result = ''
-    for dirname in os.listdir():
-        if os.path.isdir(dirname):
-            os.chdir(dirname)
-            for project in os.listdir():
-                result = project
-    return result
-
 
 def start_swarm_service():
 
