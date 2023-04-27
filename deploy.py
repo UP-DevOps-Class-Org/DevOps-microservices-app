@@ -18,7 +18,7 @@ def deploy():
            # Loop through all directories in the current working directory
             for dirname in os.listdir():
                 print(dirname)
-                if dirname != '.git' | dirname != '.idea' and os.path.isdir(dirname):
+                if dirname == 'microservices' and os.path.isdir(dirname):
                     # cd microservices
                     os.chdir(dirname)
                     print(dirname)
@@ -32,7 +32,7 @@ def deploy():
         elif(len(sys.argv) >= 2):
             docker_login_registry()
             for dirname in os.listdir():
-                if dirname != '.git' | dirname != '.idea' and os.path.isdir(dirname):
+                if os.path.isdir(dirname):
                     os.chdir(dirname)
                     for project in os.listdir():
                         for i in (sys.argv):
