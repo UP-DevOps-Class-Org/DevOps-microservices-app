@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+      - 7500:7500
     environment:
       - DB_HOST=mongodb
       - DB_USER=$MONGODB_USER
