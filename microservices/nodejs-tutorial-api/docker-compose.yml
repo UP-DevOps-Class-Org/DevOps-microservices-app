@@ -18,7 +18,7 @@ services:
     build: .
     image: sithvothykiv/nodejs-tutorial-api
     restart: unless-stopped
-    env_file: ./.env
+    env_file: ./.env.example
     ports:
       - 7500:7500
     environment:
