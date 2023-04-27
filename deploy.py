@@ -48,7 +48,7 @@ def build_docker_images(dir_project):
 
     print(dir_project)
     os.chdir(dir_project)
-
+    subprocess.run(['ls','-l'])
     # Run the docker info command and capture the output
     output = subprocess.check_output(['docker', 'info']).decode()
 
