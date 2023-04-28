@@ -4,7 +4,7 @@ services:
   mongodb:
     image: mongo:5.0.2
     restart: unless-stopped
-    env_file: ./.env.example
+    env_file: ./.env
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root #$MONGODB_USER
       - MONGO_INITDB_ROOT_PASSWORD=123456 #$MONGODB_PASSWORD
@@ -19,7 +19,7 @@ services:
     build: .
     image: sithvothykiv/nodejs-tutorial-api
     restart: unless-stopped
-    env_file: ./.env.example
+    env_file: ./.env
     ports:
       # - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
       - 7500:7500

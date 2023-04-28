@@ -14,7 +14,7 @@ services:
     volumes:
       - db:/data/db
       
-  app1:
+  service-node:
     depends_on:
       - mongodb
     environment:
@@ -38,7 +38,7 @@ services:
       restart_policy:
         condition: on-failure
         
-  app2:
+  service-php:
     image: sithvothykiv/php-sample-demo:latest
     ports:
       - 8000:80
