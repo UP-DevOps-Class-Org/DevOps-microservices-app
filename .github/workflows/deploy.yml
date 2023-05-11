@@ -32,6 +32,15 @@ jobs:
           file: ./microservices/pet-shop-web/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:v1.0.0
+      - name: Deploy to Docker Swarm
+        uses: docker/swarm-action@v2
+        with:
+          stack-name: my-stack
+          compose-file: docker-compose.yml
+          ssh-key: ${{ secrets.REMOTE_PRIVATE_KEY }}
+          remote-host: ${{ secrets.REMOTE_HOST }}
+          remote-user: ${{ secrets.REMOTE_USER }}
+          with-registry-auth: true  
           
 #       - name: Deploy to swarm
 #         uses: kitconcept/docker-stack-deploy@v1.0.1
