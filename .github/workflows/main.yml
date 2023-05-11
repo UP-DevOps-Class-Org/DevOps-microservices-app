@@ -33,6 +33,6 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          file: ./$MICROSERVICES_DIR/pet-shop-web/Dockerfile
+          file: ./microservices/pet-shop-web/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:v1
