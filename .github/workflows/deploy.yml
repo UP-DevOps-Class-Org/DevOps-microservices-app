@@ -37,5 +37,10 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:v1
       
+      - 
+        name: Deploy to swarm
+        uses: sagebind/docker-swarm-deploy-action@v2
+        with:
+          remote_host: ssh://${{ secrets.REMOTE_HOST }} 
+          args: stack deploy node --compose-file docker-compose.yml 
 
-          
