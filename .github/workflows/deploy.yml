@@ -32,22 +32,15 @@ jobs:
           file: ./microservices/pet-shop-web/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:v1.0.0
-          
-      - name: Deploy to Swarm
-        uses: docker/swarm-deploy-action@v1.0.1
-        with:
-          compose-file: ./docker-compose-file.yml
-          stack-name: my-stack
-          with-registry-auth: true
-          docker-host: ssh://${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}
-#           docker-cert-path: /path/to/cert/folder
-          
-#       - name: Deploy to swarm
-#         uses: kitconcept/docker-stack-deploy@v1.0.1
+      
+      # Then remote to swarm host server and manually deploy by using shell script
+      
+      
+#       - name: Deploy to Swarm
+#         uses: sagebind/docker-swarm-deploy-action@v2
 #         with:
-#           remote_host: ${{ secrets.REMOTE_HOST }}
-#           remote_user: ${{ secrets.REMOTE_USER }}
-#           remote_private_key: ${{ secrets.REMOTE_PRIVATE_KEY }}
-#           stack_file: "stacks/docker-compose.yml"
-#           stack_name: "node"
-
+#           remote_host: ssh://${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}
+#           ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+#           ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+#           args: stack deploy --compose-file stack.yaml app
+          
