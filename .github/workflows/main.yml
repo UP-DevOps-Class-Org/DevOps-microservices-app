@@ -30,6 +30,6 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          file: ./Dockerfile
+          file: ./microservices/pet-shop-web/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/app:latest
