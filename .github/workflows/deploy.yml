@@ -40,5 +40,6 @@ jobs:
         with:
           remote_host: ssh://${{ secrets.REMOTE_HOST }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           args: stack deploy node --compose-file docker-compose.yml 
 
