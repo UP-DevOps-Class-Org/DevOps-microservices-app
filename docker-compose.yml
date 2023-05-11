@@ -38,10 +38,23 @@ services:
       restart_policy:
         condition: on-failure
         
-  service-php:
-    image: sithvothykiv/php-sample-demo:latest
+  service-financial:
+    image: sithvothykiv/financial-service-web:latest
     ports:
-      - 8000:80
+      - 6001:80
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+
+  service-pet:
+    image: sithvothykiv/pet-shop-web:latest
+    ports:
+      - 6002:80
     deploy:
       mode: global
       update_config:

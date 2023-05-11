@@ -46,7 +46,8 @@ def build_docker_images(dir_project):
     result_build = None
     result_pushed = None
 
-    print(dir_project)
+    print(f'{Fore.GREEN} ❯❯❯❯❯❯❯❯❯❯❯❯❯ Building {dir_project} image {Style.RESET_ALL} ')
+    
     os.chdir(dir_project)
     subprocess.run(['ls','-l'])
     # Run the docker info command and capture the output
@@ -73,25 +74,23 @@ def build_docker_images(dir_project):
 
     # Check if the build was successful
     if result_build.returncode == 0:
-        print(
-            f'{Fore.GREEN}{dir_project} image build successfully {Style.RESET_ALL} \n')
+        print(f'{Fore.GREEN} ❯❯❯❯❯❯❯❯❯❯❯❯❯ {dir_project} image build successfully {Style.RESET_ALL}  \n')
         if os.path.isfile("docker-compose.yml"):
             result_pushed = subprocess.run(['docker', 'compose', 'push'])
         else:
             result_pushed = subprocess.run(['docker', 'push', f'{tag}'])
 
         if result_pushed.returncode == 0:
-            print(
-                f'{Fore.GREEN}{dir_project} image push successfully {Style.RESET_ALL} \n')
+            print(f'{Fore.GREEN} ❯❯❯❯❯❯❯❯❯❯❯❯❯ {dir_project} image push successfully {Style.RESET_ALL}  \n')
             os.chdir("..")
 
     else:
         print(
-            f'{Fore.RED}{dir_project} image build failed {Style.RESET_ALL}')
+            f'{Fore.RED}❯❯❯❯❯❯❯❯❯❯❯❯❯ {dir_project} image build failed {Style.RESET_ALL}')
 
 
 def docker_login_registry():
-    print(f'{Fore.GREEN} Docker login registry')
+    print(f'{Fore.GREEN} ❯❯❯❯❯❯❯❯❯❯❯❯❯ Login to docker registry.... ')
 
     # Run docker login
     subprocess.run(['docker', 'login'])
@@ -106,12 +105,15 @@ def start_swarm_service():
 
     # Define the Docker CLI command to deploy a stack
     deploy_command = "docker stack deploy --compose-file docker-compose.yml node --with-registry-auth"
-    print(f'{Fore.GREEN}  {parent_dir}')
+    # print(f'{Fore.GREEN} ❯❯❯❯❯❯❯❯❯❯❯❯❯ Current directory {parent_dir}.....')
+    print(f'{Fore.GREEN} ❯ ❯ ❯ ❯ ❯ ❯ ❯ Deploying.....')
 
     # Start swarm services
     os.chdir("..")
-    subprocess.run(deploy_command, shell=True)
+    deploy = subprocess.run(deploy_command, shell=True)
 
+    if(deploy.returncode == 0):
+        print(f'{Fore.GREEN}  ❯ ❯ ❯ ❯ ❯ ❯ ❯ Successfully Deploy.....')
 
     # stop swarm services
     # docker stack rm node
