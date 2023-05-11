@@ -6,8 +6,7 @@ on:
       - "main"
 
 env:
-  CURRENT_DIR: ./
-  MICROSERVICES: microservices
+  MICROSERVICES_DIR: microservices
 
 jobs:
   docker:
@@ -34,6 +33,6 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          file: ${{ CURRENT_DIR }}/${{ MICROSERVICES }}/pet-shop-web/Dockerfile
+          file: ./${{ MICROSERVICES_DIR }}/pet-shop-web/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:v1
