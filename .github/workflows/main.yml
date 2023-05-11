@@ -6,7 +6,7 @@ on:
       - "main"
 
 env:
-  MICROSERVICES_DIR: microservices
+  MICROSERVICES_DIR: /microservices
 
 jobs:
   docker:
