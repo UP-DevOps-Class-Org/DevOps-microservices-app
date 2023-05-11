@@ -1,4 +1,4 @@
-name: Build Docker & Deploy
+name: Build Docker
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 env:
   MICROSERVICES_DIR: /microservices
 
-jobs:
+jobs: 
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -36,3 +36,6 @@ jobs:
           file: ./microservices/pet-shop-web/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:v1
+      
+
+          
