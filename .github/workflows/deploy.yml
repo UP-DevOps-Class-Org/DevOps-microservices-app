@@ -31,14 +31,14 @@ jobs:
           platforms: linux/amd64,linux/arm64
           file: ./microservices/pet-shop-web/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:v1
+          tags: ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:v1.0.0
           
-      - name: Deploy to swarm
-        uses: kitconcept/docker-stack-deploy@v1.0.1
-        with:
-          remote_host: ${{ secrets.REMOTE_HOST }}
-          remote_user: ${{ secrets.REMOTE_USER }}
-          remote_private_key: ${{ secrets.REMOTE_PRIVATE_KEY }}
-          stack_file: "stacks/docker-compose.yml"
-          stack_name: "node"
+#       - name: Deploy to swarm
+#         uses: kitconcept/docker-stack-deploy@v1.0.1
+#         with:
+#           remote_host: ${{ secrets.REMOTE_HOST }}
+#           remote_user: ${{ secrets.REMOTE_USER }}
+#           remote_private_key: ${{ secrets.REMOTE_PRIVATE_KEY }}
+#           stack_file: "stacks/docker-compose.yml"
+#           stack_name: "node"
 
