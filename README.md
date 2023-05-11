@@ -62,3 +62,6 @@ root@swarm-node~# python3 deploy.py app1_name app2_name app3_name
 ```
 docker run -d -p 7500:7500 image-id
 ```
+
+## Reference 
+https://github.com/marketplace/actions/docker-stack-deploy-action
