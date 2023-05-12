@@ -41,7 +41,7 @@ services:
   service-financial:
     image: sithvothykiv/financial-service-web:latest
     ports:
-      - 6002:80
+      - 6002:6002
     deploy:
       mode: global
       update_config:
@@ -54,7 +54,7 @@ services:
   service-pet:
     image: sithvothykiv/pet-shop-web:latest
     ports:
-      - 6003:80
+      - 6003:6003
     deploy:
       mode: global
       update_config:
