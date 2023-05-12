@@ -2,33 +2,10 @@ version: '3.5'
 
 services:
 
-  mongodb:
-    image: mongo:5.0.2
-    # restart: unless-stopped
-    # env_file: ./.env
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=123456
+  service-coffee:
+    image: sithvothykiv/zon-coffee-web:latest
     ports:
-      - 7017:27017
-    volumes:
-      - db:/data/db
-      
-  service-node:
-    depends_on:
-      - mongodb
-    environment:
-      - DB_HOST=mongodb
-      - DB_USER=root
-      - DB_PASSWORD=123456
-      - DB_NAME=test_db
-      - DB_PORT=27017
-    stdin_open: true
-    image: sithvothykiv/nodejs-tutorial-api:latest
-    ports:
-      - 7500:7500
-
-    # DEPLOYMENT  
+      - 6001:80
     deploy:
       mode: global
       update_config:
@@ -37,7 +14,7 @@ services:
         failure_action: rollback
       restart_policy:
         condition: on-failure
-        
+
   service-financial:
     image: sithvothykiv/financial-service-web:latest
     ports:
