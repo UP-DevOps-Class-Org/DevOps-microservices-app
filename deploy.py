@@ -60,7 +60,7 @@ def build_docker_images(dir_project):
         username = username_line[0].split(':')[1].strip()
     else:
         # Use a default username if the user is not logged in or has no username
-        username = 'sithvothykiv'
+        username = 'ksithvothy'
 
     # Build the Docker image with the username in the tag
     tag = f'{username}/{dir_project}:latest'

@@ -3,7 +3,7 @@ version: '3.5'
 services:
 
   service-coffee:
-    image: sithvothykiv/zon-coffee-web:latest
+    image: ksithvothy/zon-coffee-web:latest
     ports:
       - 6001:80
     deploy:
@@ -16,7 +16,7 @@ services:
         condition: on-failure
 
   service-financial:
-    image: sithvothykiv/financial-service-web:latest
+    image: ksithvothy/financial-service-web:latest
     ports:
       - 6002:80
     deploy:
@@ -29,7 +29,7 @@ services:
         condition: on-failure
 
   service-pet:
-    image: sithvothykiv/pet-shop-web:latest
+    image: ksithvothy/pet-shop-web:latest
     ports:
       - 6003:80
     deploy:
@@ -42,7 +42,7 @@ services:
         condition: on-failure
            
   haproxy:
-    image: sithvothykiv/haproxy:1.7
+    image: ksithvothy/haproxy:1.7
     ports:
       - 80:80
     deploy:
