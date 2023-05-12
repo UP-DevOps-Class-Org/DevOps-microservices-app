@@ -21,7 +21,7 @@ jobs:
       - name: Build and push
         # uses: docker/build-push-action@v4
         run: |
-          cd microservices/financial-service-web
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/financial-service-web:latest . 
-          docker push ${{ secrets.DOCKER_USERNAME }}/financial-service-web:latest
+          cd microservices/pet-shop-web
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:latest . 
+          docker push ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:latest
 
