@@ -29,9 +29,9 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          file: ./microservices/pet-shop-web/Dockerfile
+          file: ./microservices/financial-service-web/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/pet-shop-web:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/financial-service-web:latest
       
       # Then remote to swarm host server and manually deploy by using shell script
       
