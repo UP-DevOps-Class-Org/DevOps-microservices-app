@@ -1,0 +1,20 @@
+name: Deploy Docker Swarm Services
+
+on:
+  push:
+    branches:
+      - "main"
+      
+jobs: 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy docker swarm
+        run: |
+          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}
+          
+          docker service ls 
+          cd /MyProjects/DevOpsPractice/DevOps-microservices-app
+          ls -l
+          
+          
